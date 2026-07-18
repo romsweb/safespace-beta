@@ -84,7 +84,7 @@
       scrub: true,
       onUpdate: function (self) {
         // 08:02 → 08:17 sur la durée de la scène
-        if (winClock) winClock.textContent = fmtClock(self.progress * 15);
+        if (winClock) winClock.textContent = fmtClock(2 + self.progress * 15);
       },
     },
   });
@@ -173,8 +173,8 @@
   var tcTime = document.getElementById('tc-time');
   var tcFill = document.getElementById('tc-fill');
   var chapters = [
-    { sel: '#matin', label: 'CH.01 — Un lundi comme les autres', from: 0, to: 15 },
-    { sel: '#frappe', label: 'CH.02 — La frappe', from: 15, to: 15 },
+    { sel: '#matin', label: 'CH.01 — Un lundi comme les autres', from: 2, to: 17 },
+    { sel: '#frappe', label: 'CH.02 — La frappe', from: 17, to: 17 },
     { sel: '#bascule', label: 'CH.03 — La bascule', from: 29, to: 107 },
     { sel: '#reprise', label: 'CH.04 — Redémarré', from: 107, to: 107 },
   ];
