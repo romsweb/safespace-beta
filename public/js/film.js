@@ -11,6 +11,9 @@
 
   var JUMP = new URLSearchParams(location.search).get('jump');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Sur tactile, le scroll par élans saute des dizaines de px par frame :
+  // un scrub amorti laisse les animations rattraper en douceur au lieu de téléporter.
+  var SCRUB = window.matchMedia('(pointer: coarse)').matches ? 0.8 : true;
 
   function markReady() {
     requestAnimationFrame(function () {
@@ -77,7 +80,7 @@
       start: 'top top',
       end: '+=160%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlSurface
@@ -93,7 +96,7 @@
       start: 'top top',
       end: '+=150%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlPlongee
@@ -116,7 +119,7 @@
         return '+=' + (track.scrollWidth - window.innerWidth);
       },
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
       invalidateOnRefresh: true,
     },
   });
@@ -133,7 +136,7 @@
           containerAnimation: horiz,
           start: 'left right',
           end: 'right left',
-          scrub: true,
+          scrub: SCRUB,
         },
       }
     );
@@ -146,7 +149,7 @@
       start: 'top top',
       end: '+=170%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlStorm
@@ -168,7 +171,7 @@
       start: 'top top',
       end: '+=130%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlRetour

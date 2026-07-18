@@ -7,6 +7,9 @@
 
   var JUMP = new URLSearchParams(location.search).get('jump');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Sur tactile, le scroll par élans saute des dizaines de px par frame :
+  // un scrub amorti laisse les animations rattraper en douceur au lieu de téléporter.
+  var SCRUB = window.matchMedia('(pointer: coarse)').matches ? 0.8 : true;
 
   function markReady() {
     requestAnimationFrame(function () {
@@ -71,7 +74,7 @@
       start: 'top top',
       end: '+=160%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlNoumea
@@ -90,7 +93,7 @@
       start: 'top top',
       end: '+=160%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlEntree
@@ -115,7 +118,7 @@
         return '+=' + (track.scrollWidth - window.innerWidth);
       },
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
       invalidateOnRefresh: true,
     },
   });
@@ -131,7 +134,7 @@
           containerAnimation: horiz,
           start: 'left right',
           end: 'right left',
-          scrub: true,
+          scrub: SCRUB,
         },
       }
     );
@@ -144,7 +147,7 @@
       start: 'top top',
       end: '+=180%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   [['.i1', 0.1], ['.i2', 0.28], ['.i3', 0.46], ['.i4', 0.64]].forEach(function (pair) {
@@ -167,7 +170,7 @@
       start: 'top top',
       end: '+=160%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlCoffre

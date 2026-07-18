@@ -9,6 +9,9 @@
 
   var JUMP = new URLSearchParams(location.search).get('jump');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Sur tactile, le scroll par élans saute des dizaines de px par frame :
+  // un scrub amorti laisse les animations rattraper en douceur au lieu de téléporter.
+  var SCRUB = window.matchMedia('(pointer: coarse)').matches ? 0.8 : true;
 
   function markReady() {
     requestAnimationFrame(function () {
@@ -71,40 +74,55 @@
   });
   gsap.from('.window', { opacity: 0, y: 40, rotateY: -8, duration: 1.1, ease: 'power3.out', delay: 0.35 });
 
+  /* ── LA FRAPPE EN DIRECT : se joue toute seule au chargement (pas au scroll) ──
+     Sur mobile, le scroll par élans rendait la séquence invisible ; ici tout le
+     monde la voit : horloge qui s'emballe, tremblements, fichiers chiffrés, rançon. */
+  var winClock = document.getElementById('win-clock');
+  var clockProxy = { m: 2 };
+  var strikeTl = gsap.timeline({ delay: 1.5 });
+  strikeTl
+    /* l'horloge file de 08:02 à 08:16 — le temps passe, tout va bien */
+    .to(clockProxy, {
+      m: 16,
+      duration: 1.6,
+      ease: 'power2.in',
+      onUpdate: function () {
+        if (winClock) winClock.textContent = fmtClock(clockProxy.m);
+      },
+    })
+    /* pré-tremblements */
+    .to('.window', { x: -5, duration: 0.05, yoyo: true, repeat: 3, ease: 'none' }, '>-0.25')
+    .to('.glitch-slice', { opacity: 0.5, duration: 0.06, stagger: 0.04, yoyo: true, repeat: 1 }, '<')
+    /* 08:17 — le chiffrement commence, fichier par fichier */
+    .add(function () {
+      if (winClock) winClock.textContent = '08:17';
+    })
+    .to('.n-ok', { opacity: 0, duration: 0.12, stagger: 0.16 }, '>0.15')
+    .to('.n-locked', { opacity: 1, duration: 0.12, stagger: 0.16 }, '<')
+    .to('.glitch-slice', { opacity: 0.75, duration: 0.07, stagger: 0.05, yoyo: true, repeat: 1 }, '<0.35')
+    .to('.window', { x: 4, duration: 0.04, yoyo: true, repeat: 5, ease: 'none' }, '<')
+    /* l'écran de rançon claque */
+    .to('.ransom', { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.6)' }, '>0.25')
+    .to('.win-bar', { backgroundColor: '#2a1416', duration: 0.35 }, '<')
+    .to('.win-clock, .win-title', { color: '#e5352b', duration: 0.35 }, '<')
+    .to('.ransom', { opacity: 0.9, duration: 0.07, yoyo: true, repeat: 3 }, '>0.5');
+
   /* ════════ SCÈNES PINNÉES ════════ */
 
-  /* CH.1 — LE MATIN : la fenêtre vit, l'horloge tourne, puis la frappe */
-  var winClock = document.getElementById('win-clock');
+  /* CH.1 — LE MATIN : après la frappe, la caméra s'attarde puis passe au constat */
   var tlMatin = gsap.timeline({
     scrollTrigger: {
       trigger: '#matin',
       start: 'top top',
       end: '+=170%',
       pin: true,
-      scrub: true,
-      onUpdate: function (self) {
-        // 08:02 → 08:17 sur la durée de la scène
-        if (winClock) winClock.textContent = fmtClock(2 + self.progress * 15);
-      },
+      scrub: SCRUB,
     },
   });
   tlMatin
     .to('.hero-copy', { opacity: 0, y: -40, ease: 'power1.in', duration: 0.22 }, 0.1)
     .to('.scroll-hint', { opacity: 0, duration: 0.08 }, 0)
-    .to('.window', { scale: 1.06, x: '-12%', ease: 'none', duration: 0.5 }, 0.1)
-    /* pré-tremblements */
-    .to('.glitch-slice', { opacity: 0.5, duration: 0.015, stagger: 0.01 }, 0.5)
-    .to('.glitch-slice', { opacity: 0, duration: 0.02 }, 0.55)
-    .to('.window', { x: '-11%', duration: 0.01 }, 0.5)
-    .to('.window', { x: '-12%', duration: 0.01 }, 0.52)
-    /* la frappe : fichiers verrouillés un à un */
-    .to('.n-ok', { opacity: 0, duration: 0.05, stagger: 0.045 }, 0.6)
-    .to('.n-locked', { opacity: 1, duration: 0.05, stagger: 0.045 }, 0.6)
-    .to('.glitch-slice', { opacity: 0.75, duration: 0.02, stagger: 0.015 }, 0.62)
-    .to('.glitch-slice', { opacity: 0, duration: 0.03 }, 0.72)
-    /* l'écran de rançon */
-    .to('.ransom', { opacity: 1, scale: 1, ease: 'power2.out', duration: 0.12 }, 0.82)
-    .to('.win-bar', { backgroundColor: '#2a1416', duration: 0.1 }, 0.82);
+    .to('.window', { scale: 1.06, ease: 'none', duration: 0.6 }, 0.1);
 
   /* CH.2 — LA FRAPPE : le constat */
   var tlFrappe = gsap.timeline({
@@ -113,7 +131,7 @@
       start: 'top top',
       end: '+=150%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlFrappe
@@ -129,7 +147,7 @@
       start: 'top top',
       end: '+=200%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
       onUpdate: function (self) {
         // 00:00 → 01:47 (heures:minutes écoulées depuis la frappe)
         var mins = Math.round(self.progress * 107);
@@ -153,7 +171,7 @@
       start: 'top top',
       end: '+=140%',
       pin: true,
-      scrub: true,
+      scrub: SCRUB,
     },
   });
   tlReprise
@@ -173,7 +191,7 @@
   var tcTime = document.getElementById('tc-time');
   var tcFill = document.getElementById('tc-fill');
   var chapters = [
-    { sel: '#matin', label: 'CH.01 — Un lundi comme les autres', from: 2, to: 17 },
+    { sel: '#matin', label: 'CH.01 — Un lundi comme les autres', from: 17, to: 17 },
     { sel: '#frappe', label: 'CH.02 — La frappe', from: 17, to: 17 },
     { sel: '#bascule', label: 'CH.03 — La bascule', from: 29, to: 107 },
     { sel: '#reprise', label: 'CH.04 — Redémarré', from: 107, to: 107 },
