@@ -586,11 +586,18 @@ const nodes = [
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform: translateX(-50%);
   }
-  .i1 { left: 16%; }
-  .i2 { left: 40%; }
+  .i1 { left: 18%; }
+  .i2 { left: 41%; }
   .i3 { left: 63%; }
-  .i4 { left: 83%; }
+  .i4 { left: 82%; }
+  @media (max-width: 700px) {
+    .i1 { left: 20%; }
+    .i2 { left: 45%; }
+    .i3 { left: 62%; }
+    .i4 { left: 76%; }
+  }
   .impact .tag {
     font-family: var(--font-display);
     font-weight: 700;
