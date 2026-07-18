@@ -1,0 +1,752 @@
+---
+// VERSION BETA « LA LIGNE » — le voyage de vos données, en 5 chapitres.
+// Univers : l'infrastructure. Nouméa la nuit, la ligne sous-marine, les nœuds, le coffre.
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AfterFilm from '../components/AfterFilm.astro';
+import { u } from '../lib/url';
+
+const title = 'SAFESPACE by NOVATECH — Vos données en 3 copies, sur 2 hémisphères';
+const description =
+  'Chaque nuit, vos données quittent Nouméa par la ligne : réplication chiffrée vers nos infrastructures de Nouvelle-Calédonie, d’Australie et de France. Sauvegarde, PRA et cybersécurité pour les entreprises calédoniennes. Essai 30 jours.';
+
+// Points lumineux de la ville (déterministes, générés au build)
+const cityDots = Array.from({ length: 90 }, (_, i) => {
+  const x = ((i * 137.5) % 100).toFixed(1);
+  const y = ((i * 71.3 + 13) % 100).toFixed(1);
+  const s = 1 + ((i * 7) % 3);
+  const o = 0.25 + ((i * 13) % 50) / 100;
+  return { x, y, s, o };
+});
+
+const nodes = [
+  {
+    code: 'NOU',
+    flag: '🇳🇨',
+    city: 'Nouméa',
+    dist: 'km 0 — le départ',
+    role: 'La copie locale, tout près',
+    desc: 'Votre réplique de proximité, sur notre infrastructure calédonienne : restauration à vitesse locale, souveraineté totale, et l’équipe à 10 minutes.',
+    points: ['Restauration la plus rapide', 'Données sous juridiction locale', 'Support physique possible'],
+  },
+  {
+    code: 'SYD',
+    flag: '🇦🇺',
+    city: 'Sydney',
+    dist: 'km 1 984 — hors zone cyclonique',
+    role: 'La copie régionale, hors cyclone',
+    desc: 'Quand un événement touche tout le territoire — cyclone, coupure majeure — votre copie australienne reste intacte, à deux heures de décalage seulement.',
+    points: ['Hors de la zone de sinistre NC', 'Latence régionale faible', 'Datacenters certifiés'],
+  },
+  {
+    code: 'PAR',
+    flag: '🇫🇷',
+    city: 'Paris',
+    dist: 'km 16 742 — l’autre hémisphère',
+    role: 'La copie ultime, l’autre bout du monde',
+    desc: 'Le scénario du pire n’atteint pas les deux hémisphères en même temps. Votre copie française est la garantie que, quoi qu’il arrive, vos données existent.',
+    points: ['Immuable — verrouillage WORM', 'Juridiction européenne (RGPD)', 'Isolée de votre réseau'],
+  },
+];
+---
+
+<Base title={title} description={description} path="/beta-la-ligne">
+  <Header anchorBase="" />
+
+  <!-- ══════════════ LE FILM — « La Ligne » ══════════════ -->
+  <main id="film">
+    <!-- CH.1 — Nouméa, 22:47 -->
+    <section class="scene" id="noumea" aria-label="Chapitre 1 — Nouméa, la nuit">
+      <div class="city" aria-hidden="true">
+        {cityDots.map((d) => (
+          <i style={`left:${d.x}%;top:${d.y}%;width:${d.s}px;height:${d.s}px;opacity:${d.o}`}></i>
+        ))}
+        <span class="you">
+          <span class="you-dot"></span>
+          <span class="you-label">Vos serveurs — Nouméa</span>
+        </span>
+      </div>
+      <div class="hero-content">
+        <p class="kicker-line">Sauvegarde · PRA · Cybersécurité — Nouvelle-Calédonie</p>
+        <h1 class="hero-title">
+          <span class="line">Vos données vivent ici.</span>
+          <span class="line accent">Et seulement ici&nbsp;?</span>
+        </h1>
+        <p class="hero-sub">
+          Il est 22:47 à Nouméa. Dans un bâtiment, un serveur contient toute votre entreprise :
+          compta, contrats, clients. Chaque nuit, SAFESPACE le fait <strong>exister ailleurs</strong> —
+          en 3 copies, sur 2 hémisphères. Suivez la ligne.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#essai">Essai gratuit 30 jours</a>
+          <a class="btn-ghost" href="tel:+687259667">Urgence&nbsp;? +687 25 96 67</a>
+        </div>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">Suivez la ligne<span class="hint-arrow">↓</span></p>
+    </section>
+
+    <!-- CH.2 — L'entrée dans la ligne -->
+    <section class="scene" id="entree" aria-label="Chapitre 2 — L'entrée dans la ligne">
+      <div class="tunnel" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <span class="pkt p1"></span><span class="pkt p2"></span><span class="pkt p3"></span><span class="pkt p4"></span>
+      </div>
+      <div class="beat beat-entree">
+        <p class="chapter-tag">CH.02 — 22:47, l’entrée</p>
+        <h2>La sauvegarde du soir<br />entre dans <em>la ligne</em>.</h2>
+        <p class="beat-sub">
+          Chiffrée avant de partir, dédupliquée pour voyager léger. Seuls les blocs modifiés du jour
+          prennent la ligne — c’est pour ça que ça marche, même sur une connexion calédonienne.
+        </p>
+      </div>
+    </section>
+
+    <!-- CH.3 — La traversée (horizontale) -->
+    <section class="scene" id="traversee" aria-label="Chapitre 3 — La traversée">
+      <div class="line-track">
+        <div class="line-intro">
+          <p class="chapter-tag">CH.03 — La traversée</p>
+          <h2>Trois copies.<br />Deux hémisphères.<br />Une ligne.</h2>
+          <p class="beat-sub">Longez la ligne jusqu’au bout&nbsp;→</p>
+        </div>
+        {nodes.map((n) => (
+          <article class="node">
+            <p class="node-dist">{n.dist}</p>
+            <div class="node-head">
+              <span class="node-code">{n.code}</span>
+              <span class="node-flag">{n.flag}</span>
+              <h3>{n.city}</h3>
+            </div>
+            <p class="node-role">{n.role}</p>
+            <p class="node-desc">{n.desc}</p>
+            <ul class="node-points">
+              {n.points.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+            <span class="node-port" aria-hidden="true"></span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- CH.4 — Les impacts -->
+    <section class="scene" id="impacts" aria-label="Chapitre 4 — Les impacts">
+      <div class="shield-line" aria-hidden="true">
+        <div class="impact i1"><span class="tag">RANSOMWARE</span><span class="ring"></span></div>
+        <div class="impact i2"><span class="tag">CYCLONE</span><span class="ring"></span></div>
+        <div class="impact i3"><span class="tag">INCENDIE</span><span class="ring"></span></div>
+        <div class="impact i4"><span class="tag">ERREUR HUMAINE</span><span class="ring"></span></div>
+      </div>
+      <div class="beat beat-impacts">
+        <p class="chapter-tag warn">CH.04 — Les impacts</p>
+        <h2>Tout peut frapper.<br /><em>La ligne tient.</em></h2>
+        <p class="beat-sub">
+          Un ransomware chiffre votre réseau ? Les copies sont hors du réseau. Un cyclone traverse le
+          territoire ? Sydney et Paris n’ont pas senti le vent. En 2024, 740 entreprises calédoniennes
+          ont été sinistrées — celles qui avaient une ligne ont redémarré.
+        </p>
+        <div class="calm-card">
+          <span><strong>3</strong> copies</span>
+          <span class="sep"></span>
+          <span><strong>2</strong> hémisphères</span>
+          <span class="sep"></span>
+          <span><strong>0</strong> accès pour l’attaquant</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CH.5 — Le coffre -->
+    <section class="scene" id="coffre" aria-label="Chapitre 5 — Le coffre">
+      <div class="vault" aria-hidden="true">
+        <svg viewBox="0 0 400 400" class="vault-svg">
+          <circle cx="200" cy="200" r="186" class="ring r1" />
+          <circle cx="200" cy="200" r="150" class="ring r2" />
+          <circle cx="200" cy="200" r="114" class="ring r3" />
+          <circle cx="200" cy="200" r="80" class="vault-core" />
+          <g class="lock">
+            <rect x="182" y="192" width="36" height="28" rx="5" />
+            <path d="M190 192 v-8 a10 10 0 0 1 20 0 v8" fill="none" />
+          </g>
+        </svg>
+      </div>
+      <div class="beat beat-coffre">
+        <p class="chapter-tag">CH.05 — Destination</p>
+        <h2>Scellé. Immuable.<br /><em>À vous.</em></h2>
+        <p class="beat-sub">
+          Verrouillage WORM : pendant toute la rétention, personne ne peut modifier ou effacer ces
+          copies. Pas un ransomware. Pas un administrateur compromis. Pas même nous.
+        </p>
+        <a class="btn-primary" href="#essai">Mettre mes données sur la ligne</a>
+      </div>
+      <div class="seam" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <!-- Odomètre fixe -->
+  <div class="odometer" id="odometer" aria-hidden="true">
+    <span class="od-label" id="od-label">CH.01 — Nouméa, 22:47</span>
+    <span class="od-km" id="od-km">km 0</span>
+    <span class="od-bar"><i id="od-fill"></i></span>
+  </div>
+
+  <AfterFilm />
+  <Footer anchorBase="" />
+
+  <script is:inline src={u('/vendor/gsap.min.js')} defer></script>
+  <script is:inline src={u('/vendor/ScrollTrigger.min.js')} defer></script>
+  <script is:inline src={u('/vendor/lenis.min.js')} defer></script>
+  <script is:inline src={u('/js/film-ligne.js')} defer></script>
+</Base>
+
+<style>
+  /* ═══ Le monde « La Ligne » : la nuit, le réseau, l'acier ═══ */
+  :root {
+    --nuit-0: #050b14;
+    --nuit-1: #071120;
+    --ligne: #0fb4d4;
+    --ligne-glow: #57e3ff;
+    --acier: #8fb4d4;
+  }
+  #film {
+    position: relative;
+    color: var(--blanc);
+  }
+  .scene {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chapter-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ligne);
+    margin-bottom: 20px;
+  }
+  .chapter-tag.warn {
+    color: var(--orange);
+  }
+  .beat {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    padding: 0 clamp(20px, 5vw, 48px);
+    text-align: center;
+  }
+  .beat h2 {
+    font-size: clamp(30px, 4.6vw, 54px);
+    color: var(--blanc);
+  }
+  .beat h2 em {
+    font-style: normal;
+    color: var(--ligne-glow);
+  }
+  .beat-sub {
+    margin: 22px auto 0;
+    max-width: 60ch;
+    font-size: clamp(15px, 1.5vw, 17.5px);
+    line-height: 1.7;
+    opacity: 0.82;
+  }
+
+  /* ═══ CH.1 — NOUMÉA ═══ */
+  #noumea {
+    background:
+      radial-gradient(100% 70% at 50% 115%, color-mix(in srgb, var(--ligne) 13%, transparent), transparent 60%),
+      linear-gradient(180deg, var(--nuit-0) 0%, var(--nuit-1) 100%);
+  }
+  .city {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+  .city i {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--acier);
+  }
+  .you {
+    position: absolute;
+    left: 71%;
+    top: 76%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .you-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--orange) 55%, transparent);
+    animation: pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--orange) 55%, transparent); }
+    100% { box-shadow: 0 0 0 26px transparent; }
+  }
+  .you-label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    color: var(--orange);
+    white-space: nowrap;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 120px clamp(20px, 5vw, 48px) 60px;
+    max-width: 980px;
+  }
+  .kicker-line {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ligne);
+    margin-bottom: 22px;
+  }
+  .hero-title {
+    font-size: clamp(38px, 6.4vw, 82px);
+    letter-spacing: -0.015em;
+    line-height: 1.04;
+  }
+  .hero-title .line {
+    display: block;
+    overflow: hidden;
+  }
+  .hero-title .line > :global(span) {
+    display: inline-block;
+    will-change: transform;
+  }
+  .hero-title .accent {
+    color: var(--ligne-glow);
+  }
+  .hero-sub {
+    margin: 26px auto 0;
+    max-width: 58ch;
+    font-size: clamp(15.5px, 1.6vw, 18px);
+    line-height: 1.65;
+    opacity: 0.88;
+  }
+  .hero-sub strong {
+    color: var(--ligne-glow);
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 36px;
+  }
+  .btn-primary {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 15.5px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+    padding: 16px 30px;
+    border-radius: 99px;
+    box-shadow: 0 10px 32px color-mix(in srgb, var(--orange) 42%, transparent);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--blanc);
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    padding: 15px 28px;
+    border-radius: 99px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--ligne-glow);
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hint-arrow {
+    display: inline-block;
+    animation: bob 1.8s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ═══ CH.2 — L'ENTRÉE (tunnel) ═══ */
+  #entree {
+    background: radial-gradient(90% 90% at 50% 50%, var(--nuit-1) 0%, var(--nuit-0) 75%);
+  }
+  .tunnel {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .tunnel i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 160vmax;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent 42%, color-mix(in srgb, var(--ligne) 55%, transparent) 50%, transparent 58%);
+    transform-origin: center;
+    will-change: transform, opacity;
+  }
+  .tunnel i:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); }
+  .tunnel i:nth-child(2) { transform: translate(-50%, -50%) rotate(24deg); }
+  .tunnel i:nth-child(3) { transform: translate(-50%, -50%) rotate(48deg); }
+  .tunnel i:nth-child(4) { transform: translate(-50%, -50%) rotate(76deg); }
+  .tunnel i:nth-child(5) { transform: translate(-50%, -50%) rotate(101deg); }
+  .tunnel i:nth-child(6) { transform: translate(-50%, -50%) rotate(129deg); }
+  .tunnel i:nth-child(7) { transform: translate(-50%, -50%) rotate(153deg); }
+  .tunnel i:nth-child(8) { transform: translate(-50%, -50%) rotate(166deg); }
+  .pkt {
+    position: absolute;
+    width: 26px;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--ligne-glow);
+    box-shadow: 0 0 12px var(--ligne-glow);
+    will-change: transform, opacity;
+  }
+  .p1 { left: 12%; top: 34%; }
+  .p2 { left: 74%; top: 26%; }
+  .p3 { left: 22%; top: 72%; }
+  .p4 { left: 68%; top: 64%; }
+
+  /* ═══ CH.3 — LA TRAVERSÉE ═══ */
+  #traversee {
+    background: linear-gradient(180deg, var(--nuit-0), var(--nuit-1));
+    display: block;
+  }
+  .line-track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: clamp(60px, 8vw, 150px);
+    width: max-content;
+    height: 100vh;
+    padding: 0 clamp(24px, 6vw, 90px);
+    will-change: transform;
+  }
+  .line-track::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ligne) 55%, transparent) 6%, color-mix(in srgb, var(--ligne) 55%, transparent) 94%, transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--ligne) 35%, transparent);
+  }
+  .line-intro {
+    position: relative;
+    width: min(560px, 82vw);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .line-intro h2 {
+    font-size: clamp(30px, 4vw, 52px);
+    color: var(--blanc);
+  }
+  .line-intro .beat-sub {
+    margin-left: 0;
+  }
+  .node {
+    position: relative;
+    width: min(440px, 80vw);
+    flex-shrink: 0;
+    background: color-mix(in srgb, var(--nuit-1) 76%, var(--ligne));
+    border: 1px solid color-mix(in srgb, var(--ligne) 30%, transparent);
+    border-radius: 22px;
+    padding: 30px 32px;
+    z-index: 1;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .node-dist {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ligne-glow);
+    opacity: 0.85;
+  }
+  .node-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  .node-code {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--nuit-0);
+    background: var(--ligne-glow);
+    border-radius: 7px;
+    padding: 3px 9px;
+  }
+  .node-flag {
+    font-size: 20px;
+  }
+  .node h3 {
+    font-size: clamp(28px, 3vw, 38px);
+    color: var(--blanc);
+  }
+  .node-role {
+    margin-top: 8px;
+    font-weight: 600;
+    color: var(--ligne-glow);
+  }
+  .node-desc {
+    margin-top: 12px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    opacity: 0.8;
+  }
+  .node-points {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 7px;
+    font-size: 13.5px;
+  }
+  .node-points li::before {
+    content: '● ';
+    color: var(--ligne);
+    font-size: 9px;
+    vertical-align: 2px;
+    margin-right: 6px;
+  }
+  .node-port {
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ligne-glow);
+    box-shadow: 0 0 14px var(--ligne-glow);
+    transform: translateX(-50%);
+  }
+
+  /* ═══ CH.4 — LES IMPACTS ═══ */
+  #impacts {
+    background:
+      radial-gradient(80% 90% at 50% -20%, color-mix(in srgb, var(--orange) 10%, transparent), transparent 55%),
+      linear-gradient(180deg, var(--nuit-1), var(--nuit-0));
+  }
+  .shield-line {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .shield-line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 26%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ligne) 60%, transparent) 12%, color-mix(in srgb, var(--ligne) 60%, transparent) 88%, transparent);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--ligne) 40%, transparent);
+  }
+  .impact {
+    position: absolute;
+    top: 26%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .i1 { left: 16%; }
+  .i2 { left: 40%; }
+  .i3 { left: 63%; }
+  .i4 { left: 83%; }
+  .impact .tag {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(14px, 1.6vw, 20px);
+    letter-spacing: 0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1.2px color-mix(in srgb, var(--orange) 75%, transparent);
+    transform: translateY(-40vh);
+    will-change: transform, opacity;
+    white-space: nowrap;
+  }
+  .impact .ring {
+    position: absolute;
+    top: -14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--orange);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .beat-impacts h2 em {
+    color: var(--ligne-glow);
+  }
+  .calm-card {
+    margin: 36px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 3vw, 34px);
+    flex-wrap: wrap;
+    background: color-mix(in srgb, var(--nuit-1) 70%, var(--ligne));
+    border: 1px solid color-mix(in srgb, var(--ligne) 32%, transparent);
+    border-radius: 18px;
+    padding: 22px 30px;
+    max-width: 560px;
+    font-size: 14.5px;
+  }
+  .calm-card strong {
+    font-family: var(--font-display);
+    font-size: 1.9em;
+    color: var(--ligne-glow);
+    margin-right: 6px;
+  }
+  .calm-card .sep {
+    width: 1px;
+    height: 26px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  /* ═══ CH.5 — LE COFFRE ═══ */
+  #coffre {
+    background:
+      radial-gradient(70% 70% at 50% 45%, color-mix(in srgb, var(--ligne) 10%, transparent), transparent 65%),
+      linear-gradient(180deg, var(--nuit-0), #0a1826 70%, #10263a 100%);
+  }
+  .vault {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .vault-svg {
+    width: min(72vmin, 560px);
+    height: min(72vmin, 560px);
+    will-change: transform;
+  }
+  .ring {
+    fill: none;
+    stroke: color-mix(in srgb, var(--acier) 40%, transparent);
+    stroke-width: 1.6;
+    transform-origin: 200px 200px;
+    will-change: transform;
+  }
+  .r1 { stroke-dasharray: 42 26; }
+  .r2 { stroke-dasharray: 16 30; stroke: color-mix(in srgb, var(--ligne) 45%, transparent); }
+  .r3 { stroke-dasharray: 60 14; }
+  .vault-core {
+    fill: #0c2032;
+    stroke: color-mix(in srgb, var(--ligne) 55%, transparent);
+    stroke-width: 2;
+  }
+  .lock rect,
+  .lock path {
+    stroke: var(--ligne-glow);
+    stroke-width: 3;
+    fill: none;
+  }
+  .beat-coffre {
+    text-shadow: 0 2px 30px rgba(5, 11, 20, 0.9);
+  }
+  .beat-coffre .btn-primary {
+    margin-top: 32px;
+  }
+  .seam {
+    position: absolute;
+    inset: auto 0 -1px;
+    height: 24vh;
+    background: linear-gradient(180deg, transparent, var(--blanc));
+    pointer-events: none;
+  }
+
+  /* ═══ Odomètre fixe ═══ */
+  .odometer {
+    position: fixed;
+    left: clamp(14px, 2.4vw, 34px);
+    bottom: 30px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--font-mono);
+    color: var(--blanc);
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+  }
+  .od-label {
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .od-km {
+    font-size: 22px;
+    color: var(--ligne-glow);
+    font-variant-numeric: tabular-nums;
+  }
+  .od-bar {
+    width: 120px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .od-bar i {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--ligne);
+  }
+  @media (max-width: 700px) {
+    .odometer { display: none; }
+    .you { left: 12%; top: 30%; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hint-arrow, .you-dot { animation: none; }
+    .line-track { width: auto; flex-direction: column; height: auto; padding: 80px clamp(20px, 6vw, 90px); align-items: flex-start; }
+    .line-track::before { display: none; }
+    #traversee { min-height: auto; }
+    .scene { min-height: auto; padding: 110px 0; }
+    #noumea { min-height: 100vh; padding: 0; }
+    .odometer { display: none; }
+    .impact .tag { transform: none; opacity: 0.6; }
+  }
+</style>

@@ -1,0 +1,173 @@
+---
+// Sélecteur de versions beta — page de travail, jamais destinée à la production.
+// Quand une version gagne, son contenu devient l'index et cette page disparaît.
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/url';
+
+const versions = [
+  {
+    slug: 'beta-recif',
+    name: 'Sous le Récif',
+    world: 'Nature — le lagon comme protection',
+    desc: 'Plongée du lagon vu du ciel jusqu’au récif-barrière dont les coraux sont des racks de serveurs. La tempête passe en surface, les profondeurs restent calmes.',
+    chapters: 'Surface → Plongée → Récif → Tempête → Retour',
+    accent: '#7fd8de',
+  },
+  {
+    slug: 'beta-1h47',
+    name: '1h47',
+    world: 'Temps — le chrono de la reprise',
+    desc: 'Un lundi matin normal, une frappe ransomware qui corrompt l’écran, puis la mécanique SAFESPACE qui restaure tout — chrono en main, arrêté à 1h47.',
+    chapters: '08:02 Un matin normal → 08:17 La frappe → La bascule → 09:49 Redémarré',
+    accent: '#ff6733',
+  },
+  {
+    slug: 'beta-la-ligne',
+    name: 'La Ligne',
+    world: 'Infrastructure — le voyage de vos données',
+    desc: 'Depuis un point lumineux à Nouméa, on entre dans la ligne : traversée Nouméa → Sydney → Paris, menaces qui ricochent sur la ligne blindée, arrivée dans le coffre scellé.',
+    chapters: 'Nouméa 22:47 → L’entrée → La traversée → Les impacts → Le coffre',
+    accent: '#0fb4d4',
+  },
+];
+---
+
+<Base
+  title="SAFESPACE — Versions beta de la page d'accueil"
+  description="Espace de test des versions de la nouvelle page d'accueil safespace.nc. Page de travail interne."
+  path="/"
+>
+  <main class="chooser">
+    <header class="chooser-head">
+      <img src={u('/assets/logo-safespace-novatech.png')} alt="SAFESPACE by NOVATECH" width="200" height="52" />
+      <h1>Les versions beta de la home</h1>
+      <p>
+        Chaque carte ouvre une version complète de la future page d’accueil, testable en conditions
+        réelles (scroll, mobile, liens). Les pages solutions sont partagées entre les versions.
+      </p>
+    </header>
+
+    <div class="versions">
+      {versions.map((v) => (
+        <a class="version-card" href={u(`/${v.slug}`)} style={`--accent:${v.accent}`}>
+          <p class="v-world">{v.world}</p>
+          <h2>{v.name}</h2>
+          <p class="v-desc">{v.desc}</p>
+          <p class="v-chapters">{v.chapters}</p>
+          <span class="v-go">Tester cette version →</span>
+        </a>
+      ))}
+    </div>
+
+    <footer class="chooser-foot">
+      <a href={u('/solutions/plan-reprise-activite')}>Landing type (PRA)</a>
+      <a href={u('/urgence')}>Page urgence</a>
+      <span>Betas en <code>noindex</code> — le site actuel safespace.nc n’est pas affecté.</span>
+    </footer>
+  </main>
+</Base>
+
+<style>
+  .chooser {
+    min-height: 100vh;
+    background:
+      radial-gradient(90% 100% at 80% -10%, color-mix(in srgb, var(--cyan) 14%, transparent), transparent 60%),
+      linear-gradient(180deg, var(--abysse), var(--marine));
+    color: var(--blanc);
+    padding: 80px clamp(20px, 5vw, 64px) 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .chooser-head {
+    text-align: center;
+    max-width: 640px;
+  }
+  .chooser-head img {
+    height: 44px;
+    width: auto;
+  }
+  h1 {
+    margin-top: 30px;
+    font-size: clamp(30px, 4.5vw, 52px);
+  }
+  .chooser-head p {
+    margin-top: 16px;
+    opacity: 0.75;
+  }
+  .versions {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    max-width: 1180px;
+    width: 100%;
+  }
+  .version-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--blanc);
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+    border-radius: 20px;
+    padding: 30px 28px;
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s, background 0.25s;
+  }
+  .version-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 26px 60px rgba(2, 10, 18, 0.5);
+  }
+  .v-world {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .version-card h2 {
+    font-size: 34px;
+  }
+  .v-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    opacity: 0.78;
+    flex-grow: 1;
+  }
+  .v-chapters {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    opacity: 0.55;
+  }
+  .v-go {
+    margin-top: 6px;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--accent);
+  }
+  .chooser-foot {
+    margin-top: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 30px;
+    align-items: center;
+    justify-content: center;
+    font-size: 13.5px;
+    opacity: 0.7;
+  }
+  .chooser-foot a {
+    color: var(--lagon);
+  }
+  .chooser-foot code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1px 6px;
+    border-radius: 5px;
+  }
+  @media (max-width: 900px) {
+    .versions {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

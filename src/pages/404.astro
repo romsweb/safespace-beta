@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { solutions } from '../data/solutions';
+import { u } from '../lib/url';
+---
+
+<Base
+  title="Page introuvable — SAFESPACE by NOVATECH"
+  description="Cette page n’existe pas ou a été déplacée. Retrouvez nos solutions de sauvegarde, PRA et cybersécurité pour la Nouvelle-Calédonie."
+  path="/404"
+>
+  <Header />
+  <main class="nf">
+    <p class="depth">— 404 m</p>
+    <h1>Cette page a coulé.</h1>
+    <p class="sub">Elle n’existe pas ou a été déplacée. Vos données, elles, ne subiront jamais ce sort.</p>
+    <a class="btn" href={u('/')}>Remonter à la surface</a>
+    <div class="links">
+      {solutions.slice(0, 4).map((s) => <a href={u(`/solutions/${s.slug}`)}>{s.navLabel}</a>)}
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .nf {
+    min-height: 78vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+    color: var(--blanc);
+    background:
+      radial-gradient(100% 90% at 50% 120%, color-mix(in srgb, var(--cyan) 18%, transparent), transparent 60%),
+      linear-gradient(180deg, var(--abysse), var(--marine));
+  }
+  .depth {
+    font-family: var(--font-mono);
+    letter-spacing: 0.3em;
+    color: var(--lagon);
+    font-size: 14px;
+  }
+  h1 {
+    font-size: clamp(38px, 7vw, 72px);
+    margin: 18px 0 14px;
+  }
+  .sub {
+    opacity: 0.75;
+    max-width: 46ch;
+  }
+  .btn {
+    margin-top: 32px;
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+    padding: 15px 30px;
+    border-radius: 99px;
+  }
+  .links {
+    margin-top: 44px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .links a {
+    opacity: 0.7;
+    text-decoration: none;
+  }
+  .links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,390 @@
+---
+// Le contenu commercial après le film — identique pour chaque version de la home.
+// Les ancres #preuves / #solutions / #essai / #contact vivent ici.
+import { solutions } from '../data/solutions';
+import { u } from '../lib/url';
+---
+
+<div class="after">
+  <!-- Stats -->
+  <section class="stats" id="preuves">
+    <div class="inner stats-grid">
+      <div class="stat"><span class="stat-n" data-count="600">600</span><span class="stat-plus">+</span><p>Entreprises et administrations protégées</p></div>
+      <div class="stat"><span class="stat-n" data-count="18">18</span><span class="stat-plus">ans</span><p>D’expertise locale, depuis 2007</p></div>
+      <div class="stat"><span class="stat-n" data-count="2">2</span><span class="stat-plus">-4 h</span><p>De reprise d’activité avec un PRA*</p></div>
+      <div class="stat"><span class="stat-n" data-count="100">100</span><span class="stat-plus">%</span><p>Support calédonien, en français</p></div>
+    </div>
+    <p class="stat-note inner">* Objectif de reprise selon options souscrites, validé par des tests de bascule réguliers.</p>
+  </section>
+
+  <!-- Solutions -->
+  <section class="solutions" id="solutions">
+    <div class="inner">
+      <p class="kicker">Nos solutions</p>
+      <h2>Une protection pour chaque risque</h2>
+      <div class="sol-grid">
+        {solutions.map((s) => (
+          <a class="sol-card" href={u(`/solutions/${s.slug}`)}>
+            {s.popular && <span class="pop">La plus populaire</span>}
+            <h3>{s.navLabel}</h3>
+            <p>{s.navHint}</p>
+            <span class="sol-price">Dès {s.pricing.from} <em>{s.pricing.unit}</em></span>
+            <span class="sol-go">Découvrir →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignage -->
+  <section class="proof">
+    <div class="inner proof-grid">
+      <figure class="quote">
+        <blockquote>
+          «&nbsp;En 13 ans, nous avons vécu deux sinistres majeurs&nbsp;: ransomware et incendie. Grâce à la
+          réactivité de Novatech, notre cabinet a repris son activité en 2 à 4 heures, sans aucune
+          altération.&nbsp;»
+        </blockquote>
+        <figcaption>
+          <strong>Fabrice Lagarde</strong>
+          <span>Cabinet Lagarde Expertise &amp; Conseil</span>
+        </figcaption>
+      </figure>
+      <div class="why">
+        <h2>Pourquoi NOVATECH&nbsp;?</h2>
+        <ul>
+          <li><strong>100&nbsp;% calédonien</strong> — une équipe à Nouméa, dans votre fuseau, dans votre langue.</li>
+          <li><strong>Supervision humaine quotidienne</strong> — vos sauvegardes sont vérifiées chaque matin, pas « supposées ».</li>
+          <li><strong>Hébergement au choix</strong> — Nouvelle-Calédonie, Australie ou France, selon vos exigences.</li>
+          <li><strong>La preuve par les sinistres</strong> — depuis 2007, nos clients ont traversé ransomwares, incendies et cyclones. Ils sont toujours là.</li>
+        </ul>
+        <p class="alert-band">⚠️ Après les émeutes de 2024&nbsp;: +340&nbsp;% de demandes de protection.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Essai -->
+  <section class="essai" id="essai">
+    <div class="inner essai-grid">
+      <div>
+        <p class="kicker light">Essai gratuit</p>
+        <h2>30 jours pour dormir tranquille</h2>
+        <p class="essai-sub">
+          Version complète, configuration accompagnée par notre équipe, formation incluse.
+          Sans engagement, sans carte bancaire.
+        </p>
+        <ul class="check">
+          <li>Configuration personnalisée avec un ingénieur local</li>
+          <li>Toutes les fonctionnalités, aucun bridage</li>
+          <li>Support technique en français inclus</li>
+          <li>Aucun engagement — vous restez libres</li>
+        </ul>
+      </div>
+      <div class="essai-card" id="contact">
+        <h3>Échanger avec un expert</h3>
+        <p>Réponse sous 24&nbsp;h ouvrées — souvent bien moins.</p>
+        <a class="btn-primary big" href="mailto:contact@novatech.nc?subject=Essai%20gratuit%2030%20jours%20SAFESPACE&body=Bonjour%2C%0A%0AJe%20souhaite%20d%C3%A9marrer%20l%27essai%20gratuit%20de%2030%20jours.%0A%0AEntreprise%20%3A%0AT%C3%A9l%C3%A9phone%20%3A%0ABesoin%20(sauvegarde%2C%20PRA%2C%20cybers%C3%A9curit%C3%A9...)%20%3A">
+          Démarrer l’essai gratuit
+        </a>
+        <a class="btn-whatsapp" href="https://wa.me/687259667" rel="noopener" target="_blank">Poser une question sur WhatsApp</a>
+        <a class="btn-tel" href="tel:+687259667">📞 +687 25 96 67 — urgence 24/7</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .after {
+    position: relative;
+    z-index: 5;
+    background: var(--blanc);
+    color: var(--encre);
+  }
+  .inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 48px);
+  }
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .kicker.light {
+    color: var(--lagon);
+  }
+  .after h2 {
+    font-size: clamp(28px, 3.6vw, 44px);
+    color: var(--encre);
+  }
+
+  .stats {
+    padding: 90px 0 70px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-n {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(42px, 5vw, 64px);
+    color: var(--brand);
+  }
+  .stat-plus {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(26px, 3vw, 38px);
+    color: var(--orange);
+    margin-left: 2px;
+  }
+  .stat p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--encre-2);
+  }
+  .stat-note {
+    margin-top: 26px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--encre-2);
+    opacity: 0.7;
+  }
+
+  .solutions {
+    padding: 50px 0 90px;
+  }
+  .sol-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .sol-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    background: var(--ecume);
+    border: 1px solid color-mix(in srgb, var(--cyan) 16%, transparent);
+    border-radius: 18px;
+    padding: 26px 24px;
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s, border-color 0.25s;
+  }
+  .sol-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 46px rgba(10, 37, 64, 0.13);
+    border-color: var(--cyan);
+  }
+  .pop {
+    position: absolute;
+    top: -11px;
+    right: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+    padding: 4px 12px;
+    border-radius: 99px;
+  }
+  .sol-card h3 {
+    font-size: 17.5px;
+    color: var(--brand);
+    line-height: 1.2;
+  }
+  .sol-card > p {
+    font-size: 13.5px;
+    color: var(--encre-2);
+    flex-grow: 1;
+  }
+  .sol-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--encre);
+  }
+  .sol-price em {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--encre-2);
+  }
+  .sol-go {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--orange-deep);
+  }
+
+  .proof {
+    background: var(--ecume);
+    padding: 90px 0;
+  }
+  .proof-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .quote {
+    margin: 0;
+    background: linear-gradient(165deg, var(--marine), var(--brand));
+    color: var(--blanc);
+    border-radius: 22px;
+    padding: 42px 40px;
+    box-shadow: 0 26px 70px rgba(10, 37, 64, 0.25);
+  }
+  .quote blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(19px, 2vw, 24px);
+    line-height: 1.45;
+  }
+  .quote figcaption {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+  }
+  .quote figcaption span {
+    opacity: 0.7;
+    font-size: 14px;
+  }
+  .why ul {
+    list-style: none;
+    margin: 26px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    color: var(--encre-2);
+    line-height: 1.55;
+  }
+  .why strong {
+    color: var(--encre);
+  }
+  .alert-band {
+    margin-top: 30px;
+    background: color-mix(in srgb, var(--orange) 10%, var(--blanc));
+    border: 1px solid color-mix(in srgb, var(--orange) 30%, transparent);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-weight: 600;
+    color: var(--orange-deep);
+  }
+
+  .essai {
+    background:
+      radial-gradient(90% 130% at 15% 120%, color-mix(in srgb, var(--cyan) 20%, transparent), transparent 60%),
+      linear-gradient(180deg, var(--marine), var(--abysse));
+    color: var(--blanc);
+    padding: 100px 0;
+  }
+  .essai h2 {
+    color: var(--blanc);
+  }
+  .essai-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .essai-sub {
+    margin-top: 18px;
+    opacity: 0.82;
+    max-width: 52ch;
+  }
+  .check {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .check li::before {
+    content: '✓ ';
+    color: var(--lagon);
+    font-weight: 700;
+  }
+  .essai-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 22px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .essai-card h3 {
+    font-size: 22px;
+  }
+  .essai-card > p {
+    opacity: 0.72;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .btn-primary {
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+    border-radius: 99px;
+    box-shadow: 0 10px 32px color-mix(in srgb, var(--orange) 42%, transparent);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+  .btn-primary.big {
+    text-align: center;
+    font-size: 16.5px;
+    padding: 17px 30px;
+  }
+  .btn-whatsapp {
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    color: #0d3b2e;
+    background: #c3f3d9;
+    padding: 15px 26px;
+    border-radius: 99px;
+  }
+  .btn-tel {
+    text-align: center;
+    font-weight: 500;
+    font-size: 14.5px;
+    text-decoration: none;
+    color: var(--blanc);
+    opacity: 0.85;
+    padding: 6px;
+  }
+
+  @media (max-width: 960px) {
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 20px;
+    }
+    .sol-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .proof-grid,
+    .essai-grid {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+  }
+  @media (max-width: 600px) {
+    .sol-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

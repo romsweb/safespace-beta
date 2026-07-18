@@ -1,0 +1,135 @@
+---
+// Page d'urgence ultra-légère : zéro font externe, zéro JS, styles inline minimaux.
+// Conçue pour charger sur un réseau mobile dégradé (après cyclone, incendie, cyberattaque).
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/url';
+---
+
+<Base
+  title="Urgence informatique 24/7 en Nouvelle-Calédonie | SAFESPACE by NOVATECH"
+  description="Ransomware, incendie, panne majeure : ligne d’urgence SAFESPACE 24/7 au +687 25 96 67. Les bons réflexes immédiats et les contacts directs, sur une page qui charge même en 3G."
+  path="/urgence"
+  bare={true}
+>
+  <main class="u">
+    <p class="u-badge">Ligne d’urgence — 24 h/24, 7 j/7</p>
+    <h1>Sinistre en cours ?<br />Appelez maintenant.</h1>
+
+    <a class="u-call" href="tel:+687259667">📞 +687 25 96 67</a>
+    <a class="u-wa" href="https://wa.me/687259667">💬 WhatsApp — réponse immédiate</a>
+    <a class="u-mail" href="mailto:contact@novatech.nc">✉️ contact@novatech.nc</a>
+
+    <section>
+      <h2>Ransomware ou cyberattaque — les 4 réflexes</h2>
+      <ol>
+        <li><strong>Débranchez le réseau</strong> des machines touchées (câble + Wi-Fi). Ne les éteignez pas : la mémoire contient des preuves.</li>
+        <li><strong>Ne payez pas</strong> et ne dialoguez pas avec les attaquants avant de nous avoir appelés.</li>
+        <li><strong>Ne restaurez rien</strong> vous-même : une restauration sur un réseau encore compromis sera rechiffrée.</li>
+        <li><strong>Notez l’heure</strong> des premiers symptômes et ce qui a été cliqué ou ouvert.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Incendie, cyclone, dégât matériel</h2>
+      <ol>
+        <li>Personnes d’abord — le matériel se remplace.</li>
+        <li>N’allumez aucun équipement ayant subi eau ou fumée.</li>
+        <li>Appelez-nous : si vous êtes client PRA, la bascule sur nos serveurs démarre immédiatement.</li>
+      </ol>
+    </section>
+
+    <p class="u-note">
+      Clients SAFESPACE : vos sauvegardes sont hors site et intactes. Même si tout votre matériel
+      est détruit, vos données existent. Respirez, appelez.
+    </p>
+
+    <p class="u-back"><a href={u('/')}>← Retour au site complet</a></p>
+  </main>
+</Base>
+
+<style>
+  .u {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .u-badge {
+    display: inline-block;
+    background: #ffe6db;
+    color: #b23a12;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 99px;
+  }
+  h1 {
+    font-family: system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(30px, 7vw, 44px);
+    line-height: 1.1;
+    margin: 18px 0 26px;
+    color: #0e1e2b;
+  }
+  .u-call,
+  .u-wa,
+  .u-mail {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .u-call {
+    background: #ff6733;
+    color: #fff;
+    font-size: 26px;
+  }
+  .u-wa {
+    background: #d7f5e4;
+    color: #0d3b2e;
+    font-size: 17px;
+  }
+  .u-mail {
+    background: #e8f0f6;
+    color: #143d61;
+    font-size: 16px;
+  }
+  section {
+    margin-top: 34px;
+  }
+  h2 {
+    font-family: system-ui, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #143d61;
+  }
+  ol {
+    padding-left: 22px;
+    line-height: 1.65;
+    color: #3d5468;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+  .u-note {
+    margin-top: 34px;
+    background: #eef6f8;
+    border-left: 4px solid #0fb4d4;
+    padding: 16px 18px;
+    border-radius: 0 10px 10px 0;
+    color: #0e1e2b;
+    line-height: 1.6;
+  }
+  .u-back {
+    margin-top: 34px;
+    font-size: 14px;
+  }
+  .u-back a {
+    color: #3d5468;
+  }
+</style>

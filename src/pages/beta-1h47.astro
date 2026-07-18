@@ -1,0 +1,707 @@
+---
+// VERSION BETA « 1H47 » — le chrono de la reprise, en 4 chapitres.
+// Univers : le temps. Un lundi matin ordinaire, la frappe, la bascule, la reprise.
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AfterFilm from '../components/AfterFilm.astro';
+import { u } from '../lib/url';
+
+const title = 'SAFESPACE by NOVATECH — Votre entreprise peut-elle redémarrer en moins de 2 h ?';
+const description =
+  'Ransomware à 08:17, reprise complète à 09:49. Sauvegarde, PRA et cybersécurité pour les entreprises de Nouvelle-Calédonie : vos serveurs redémarrent sur nos infrastructures en 2-4 h. Essai gratuit 30 jours.';
+
+const files = [
+  { name: 'Compta_Juin_2026.xlsx', size: '2,4 Mo' },
+  { name: 'Devis_Client_Dumbea.pdf', size: '860 Ko' },
+  { name: 'Contrats/', size: '312 éléments' },
+  { name: 'Paie_Personnel.accdb', size: '18,1 Mo' },
+  { name: 'Photos_Chantier_Koné/', size: '1 208 éléments' },
+  { name: 'Sauvegarde_locale.bak', size: '48,7 Go' },
+];
+
+const logLines = [
+  '[08:31:04] Alerte reçue — bascule PRA engagée',
+  '[08:31:19] Instantané sain identifié : dim. 23:00',
+  '[08:34:02] Démarrage des serveurs de secours — Nouméa',
+  '[08:52:47] SRV-COMPTA en ligne',
+  '[09:14:11] SRV-FICHIERS en ligne',
+  '[09:31:36] Messagerie restaurée — 12 407 emails',
+  '[09:49:12] ✓ Reprise complète — aucune donnée perdue',
+];
+
+const vms = ['SRV-AD', 'SRV-COMPTA', 'SRV-FICHIERS', 'SRV-ERP', 'M365', 'NAS-01', 'POSTE-DIR', 'SITE-WEB'];
+---
+
+<Base title={title} description={description} path="/beta-1h47">
+  <Header anchorBase="" />
+
+  <!-- ══════════════ LE FILM — « 1h47 » ══════════════ -->
+  <main id="film">
+    <!-- CH.1 — 08:02, un lundi comme les autres -->
+    <section class="scene" id="matin" aria-label="Chapitre 1 — Un lundi comme les autres">
+      <div class="hero-wrap">
+        <div class="hero-copy">
+          <p class="kicker-line">Sauvegarde · PRA · Cybersécurité — Nouvelle-Calédonie</p>
+          <h1 class="hero-title">
+            <span class="line">Votre entreprise</span>
+            <span class="line">peut-elle redémarrer</span>
+            <span class="line accent">en moins de 2&nbsp;h&nbsp;?</span>
+          </h1>
+          <p class="hero-sub">
+            Un lundi matin comme les autres. Jusqu’à ce qu’il ne le soit plus. Faites défiler pour
+            vivre les <strong>107 minutes</strong> qui séparent une frappe ransomware d’une reprise
+            complète — quand on s’y est préparé.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn-primary" href="#essai">Essai gratuit 30 jours</a>
+            <a class="btn-ghost" href="tel:+687259667">Urgence&nbsp;? +687 25 96 67</a>
+          </div>
+        </div>
+
+        <div class="desk" aria-hidden="true">
+          <div class="window" id="window">
+            <div class="win-bar">
+              <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+              <span class="win-title">Fichiers — Serveur SOCIETE-NC</span>
+              <span class="win-clock" id="win-clock">08:02</span>
+            </div>
+            <div class="win-body">
+              {files.map((f) => (
+                <div class="file-row">
+                  <span class="f-ico" aria-hidden="true"></span>
+                  <span class="f-name">
+                    <span class="n-ok">{f.name}</span>
+                    <span class="n-locked">{f.name.replace(/\/$/, '')}.x7z9 🔒</span>
+                  </span>
+                  <span class="f-size">{f.size}</span>
+                </div>
+              ))}
+            </div>
+            <div class="glitch-slice s1" aria-hidden="true"></div>
+            <div class="glitch-slice s2" aria-hidden="true"></div>
+            <div class="glitch-slice s3" aria-hidden="true"></div>
+            <div class="ransom" aria-hidden="true">
+              <p class="r-head">⚠ VOS FICHIERS ONT ÉTÉ CHIFFRÉS</p>
+              <p class="r-body">Payez 2 BTC sous 48 h ou perdez tout.</p>
+              <p class="r-addr">bc1q8s7…f04x — aucune garantie de récupération</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">Déroulez la matinée<span class="hint-arrow">↓</span></p>
+    </section>
+
+    <!-- CH.2 — 08:17, la frappe -->
+    <section class="scene" id="frappe" aria-label="Chapitre 2 — La frappe">
+      <div class="static-noise" aria-hidden="true"></div>
+      <div class="beat beat-frappe">
+        <p class="chapter-tag red">CH.02 — 08:17, la frappe</p>
+        <h2>Un clic.<br />C’est tout ce qu’il a fallu.</h2>
+        <p class="beat-sub">
+          Une fausse facture ouverte à 08:16. À 08:17, le chiffrement commence — fichiers, serveurs,
+          et la sauvegarde locale branchée au réseau. En Nouvelle-Calédonie, des dizaines de PME ont
+          vécu exactement cette minute.
+        </p>
+        <div class="strike-stats">
+          <div><strong>93 %</strong><span>des attaques commencent par un email</span></div>
+          <div><strong>48 h</strong><span>d’ultimatum moyen des rançonneurs</span></div>
+          <div><strong>60 %</strong><span>de risque de fermer sous 6 mois, sans plan</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CH.3 — La bascule -->
+    <section class="scene" id="bascule" aria-label="Chapitre 3 — La bascule">
+      <div class="beat beat-bascule">
+        <p class="chapter-tag green">CH.03 — 08:31, la bascule</p>
+        <h2>Pendant que d’autres négocieraient,<br /><em>SAFESPACE restaure</em>.</h2>
+      </div>
+      <div class="ops" aria-hidden="true">
+        <div class="chrono-big" id="chrono-big">00:00</div>
+        <div class="term">
+          {logLines.map((l) => (
+            <p class="log-line">{l}</p>
+          ))}
+        </div>
+        <div class="vm-grid">
+          {vms.map((v) => (
+            <div class="vm"><span class="vm-dot"></span>{v}</div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CH.4 — 09:49, redémarré -->
+    <section class="scene" id="reprise" aria-label="Chapitre 4 — Redémarré">
+      <div class="beat beat-reprise">
+        <p class="chapter-tag">CH.04 — 09:49, la reprise</p>
+        <p class="final-chrono">1<span>h</span>47</p>
+        <h2>Redémarré avant<br />la pause café.</h2>
+        <p class="beat-sub">
+          107 minutes entre la frappe et la reprise complète. Sans payer. Sans négocier.
+          Sans perdre un fichier. C’est ça, être préparé.
+        </p>
+        <p class="fine">Scénario type d’un client équipé PRA — objectif contractuel de reprise : 2-4 h.</p>
+        <a class="btn-primary" href="#essai">Préparer mon entreprise</a>
+      </div>
+      <div class="seam" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <!-- Timecode fixe -->
+  <div class="timecode" id="timecode" aria-hidden="true">
+    <span class="tc-label" id="tc-label">CH.01 — Un lundi comme les autres</span>
+    <span class="tc-time" id="tc-time">08:02</span>
+    <span class="tc-bar"><i id="tc-fill"></i></span>
+  </div>
+
+  <AfterFilm />
+  <Footer anchorBase="" />
+
+  <script is:inline src={u('/vendor/gsap.min.js')} defer></script>
+  <script is:inline src={u('/vendor/ScrollTrigger.min.js')} defer></script>
+  <script is:inline src={u('/vendor/lenis.min.js')} defer></script>
+  <script is:inline src={u('/js/film-1h47.js')} defer></script>
+</Base>
+
+<style>
+  /* ═══ Le monde « 1h47 » : le temps, l'interface, la précision ═══ */
+  :root {
+    --matin: #f2f6f8;
+    --matin-2: #e2ecf1;
+    --nuit: #0a0f16;
+    --rouge: #e5352b;
+    --vert: #2ecc8f;
+  }
+  #film {
+    position: relative;
+  }
+  .scene {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chapter-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 20px;
+  }
+  .chapter-tag.red {
+    color: var(--rouge);
+  }
+  .chapter-tag.green {
+    color: var(--vert);
+  }
+  .beat {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    padding: 0 clamp(20px, 5vw, 48px);
+    text-align: center;
+  }
+  .beat h2 {
+    font-size: clamp(30px, 4.6vw, 54px);
+    color: var(--blanc);
+  }
+  .beat h2 em {
+    font-style: normal;
+    color: var(--vert);
+  }
+  .beat-sub {
+    margin: 22px auto 0;
+    max-width: 60ch;
+    font-size: clamp(15px, 1.5vw, 17.5px);
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  /* ═══ CH.1 — LE MATIN (clair) ═══ */
+  #matin {
+    background:
+      radial-gradient(80% 90% at 85% 0%, color-mix(in srgb, var(--cyan) 10%, transparent), transparent 60%),
+      linear-gradient(180deg, var(--matin) 0%, var(--matin-2) 100%);
+    color: var(--encre);
+  }
+  .hero-wrap {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: clamp(30px, 5vw, 80px);
+    align-items: center;
+    max-width: 1280px;
+    padding: 120px clamp(20px, 5vw, 48px) 80px;
+  }
+  .kicker-line {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bleu);
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-size: clamp(38px, 5.4vw, 68px);
+    letter-spacing: -0.015em;
+    line-height: 1.04;
+    color: var(--encre);
+  }
+  .hero-title .line {
+    display: block;
+    overflow: hidden;
+  }
+  .hero-title .line > :global(span) {
+    display: inline-block;
+    will-change: transform;
+  }
+  .hero-title .accent {
+    color: var(--orange-deep);
+  }
+  .hero-sub {
+    margin-top: 24px;
+    max-width: 54ch;
+    font-size: clamp(15px, 1.5vw, 17.5px);
+    line-height: 1.65;
+    color: var(--encre-2);
+  }
+  .hero-sub strong {
+    color: var(--orange-deep);
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+  .btn-primary {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 15.5px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+    padding: 16px 30px;
+    border-radius: 99px;
+    box-shadow: 0 10px 32px color-mix(in srgb, var(--orange) 38%, transparent);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--encre);
+    border: 1px solid color-mix(in srgb, var(--encre) 30%, transparent);
+    padding: 15px 28px;
+    border-radius: 99px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  #frappe .btn-ghost,
+  #bascule .btn-ghost {
+    color: var(--blanc);
+  }
+  .btn-ghost:hover {
+    border-color: var(--encre);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  /* La fenêtre */
+  .desk {
+    perspective: 1200px;
+  }
+  .window {
+    position: relative;
+    width: min(560px, 100%);
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(14, 30, 43, 0.18), 0 2px 8px rgba(14, 30, 43, 0.08);
+    overflow: hidden;
+    will-change: transform;
+  }
+  .win-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 16px;
+    background: #eef2f5;
+    border-bottom: 1px solid #dde5ea;
+  }
+  .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+  .d1 { background: #ff5f57; }
+  .d2 { background: #febc2e; }
+  .d3 { background: #28c840; }
+  .win-title {
+    margin-left: 10px;
+    font-size: 12.5px;
+    color: var(--encre-2);
+  }
+  .win-clock {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--encre);
+  }
+  .win-body {
+    padding: 10px 0;
+  }
+  .file-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    font-size: 13.5px;
+    border-bottom: 1px solid #f1f5f7;
+  }
+  .f-ico {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, var(--cyan), var(--bleu));
+    flex-shrink: 0;
+  }
+  .f-name {
+    position: relative;
+    flex-grow: 1;
+    color: var(--encre);
+  }
+  .n-locked {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    color: var(--rouge);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+  .f-size {
+    font-size: 12px;
+    color: var(--encre-2);
+  }
+  .glitch-slice {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8%;
+    background: color-mix(in srgb, var(--rouge) 24%, transparent);
+    mix-blend-mode: multiply;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .s1 { top: 22%; }
+  .s2 { top: 47%; height: 5%; }
+  .s3 { top: 71%; height: 11%; }
+  .ransom {
+    position: absolute;
+    inset: 14% 8% auto;
+    background: #14090a;
+    border: 2px solid var(--rouge);
+    border-radius: 10px;
+    padding: 26px 24px;
+    text-align: center;
+    opacity: 0;
+    transform: scale(1.06);
+    will-change: transform, opacity;
+  }
+  .r-head {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--rouge);
+    letter-spacing: 0.06em;
+  }
+  .r-body {
+    margin-top: 10px;
+    color: #f3d9d7;
+    font-size: 14.5px;
+  }
+  .r-addr {
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #8d6a67;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--encre-2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hint-arrow {
+    display: inline-block;
+    animation: bob 1.8s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ═══ CH.2 — LA FRAPPE (noir/rouge) ═══ */
+  #frappe {
+    background:
+      radial-gradient(70% 80% at 50% -20%, color-mix(in srgb, var(--rouge) 16%, transparent), transparent 60%),
+      linear-gradient(180deg, #120a0b 0%, var(--nuit) 100%);
+  }
+  .static-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 3px);
+    pointer-events: none;
+  }
+  .strike-stats {
+    margin-top: 44px;
+    display: flex;
+    justify-content: center;
+    gap: clamp(24px, 4vw, 60px);
+    flex-wrap: wrap;
+  }
+  .strike-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 180px;
+  }
+  .strike-stats strong {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3.4vw, 44px);
+    color: var(--rouge);
+  }
+  .strike-stats span {
+    font-size: 13px;
+    opacity: 0.7;
+    color: var(--blanc);
+    line-height: 1.45;
+  }
+
+  /* ═══ CH.3 — LA BASCULE (contrôle) ═══ */
+  #bascule {
+    flex-direction: column;
+    gap: 30px;
+    background:
+      radial-gradient(80% 100% at 50% 120%, color-mix(in srgb, var(--vert) 9%, transparent), transparent 55%),
+      linear-gradient(180deg, var(--nuit) 0%, #0a1a24 100%);
+    padding: 90px 0 70px;
+  }
+  .ops {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px 40px;
+    align-items: center;
+    max-width: 980px;
+    width: min(94vw, 980px);
+  }
+  .chrono-big {
+    grid-row: span 2;
+    font-family: var(--font-mono);
+    font-size: clamp(56px, 8vw, 120px);
+    font-weight: 700;
+    color: var(--vert);
+    text-shadow: 0 0 40px color-mix(in srgb, var(--vert) 45%, transparent);
+    font-variant-numeric: tabular-nums;
+  }
+  .term {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid color-mix(in srgb, var(--vert) 22%, transparent);
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-family: var(--font-mono);
+    font-size: clamp(11.5px, 1.2vw, 13.5px);
+    line-height: 1.9;
+  }
+  .log-line {
+    color: #9fd6bd;
+    opacity: 0;
+    transform: translateY(6px);
+    will-change: transform, opacity;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .log-line:last-child {
+    color: var(--vert);
+    font-weight: 700;
+  }
+  .vm-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .vm {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: #7b93a5;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .vm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #37474f;
+    flex-shrink: 0;
+  }
+  .vm.on {
+    color: #d9f5e8;
+    border-color: color-mix(in srgb, var(--vert) 35%, transparent);
+  }
+  .vm.on .vm-dot {
+    background: var(--vert);
+    box-shadow: 0 0 10px var(--vert);
+  }
+
+  /* ═══ CH.4 — LA REPRISE (retour à la lumière) ═══ */
+  #reprise {
+    background:
+      radial-gradient(90% 90% at 50% -10%, color-mix(in srgb, var(--nuit) 88%, transparent), transparent 55%),
+      linear-gradient(180deg, var(--nuit) 0%, #33535d 45%, var(--matin) 100%);
+  }
+  .beat-reprise h2 {
+    color: var(--encre);
+  }
+  .final-chrono {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: clamp(80px, 13vw, 190px);
+    line-height: 1;
+    color: var(--orange-deep);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    will-change: transform, opacity;
+  }
+  .final-chrono span {
+    font-size: 0.45em;
+    color: var(--encre-2);
+  }
+  .beat-reprise .beat-sub {
+    color: var(--encre-2);
+    opacity: 1;
+  }
+  .fine {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--encre-2);
+    opacity: 0.75;
+  }
+  .beat-reprise .btn-primary {
+    margin-top: 30px;
+  }
+  .seam {
+    position: absolute;
+    inset: auto 0 -1px;
+    height: 22vh;
+    background: linear-gradient(180deg, transparent, var(--blanc));
+    pointer-events: none;
+  }
+
+  /* ═══ Timecode fixe ═══ */
+  .timecode {
+    position: fixed;
+    left: clamp(14px, 2.4vw, 34px);
+    bottom: 30px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--font-mono);
+    color: var(--blanc);
+    mix-blend-mode: difference;
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+  }
+  .tc-label {
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .tc-time {
+    font-size: 24px;
+    font-variant-numeric: tabular-nums;
+  }
+  .tc-bar {
+    width: 120px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .tc-bar i {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #fff;
+  }
+  @media (max-width: 700px) {
+    .timecode { display: none; }
+  }
+
+  @media (max-width: 960px) {
+    .hero-wrap {
+      grid-template-columns: 1fr;
+      padding-top: 110px;
+    }
+    .desk {
+      order: -1;
+    }
+    .window {
+      width: min(480px, 100%);
+      margin: 0 auto;
+    }
+    .ops {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+    .chrono-big {
+      grid-row: auto;
+    }
+    .vm-grid {
+      grid-template-columns: repeat(2, 1fr);
+      width: 100%;
+    }
+    .term {
+      width: 100%;
+    }
+  }
+
+  /* Reduced motion : tableaux fixes lisibles, états finaux visibles */
+  @media (prefers-reduced-motion: reduce) {
+    .hint-arrow { animation: none; }
+    .scene { min-height: auto; padding: 110px 0; }
+    #matin { min-height: 100vh; padding: 0; }
+    .timecode { display: none; }
+    .log-line { opacity: 1; transform: none; }
+    .vm-dot { background: var(--vert); }
+    .vm { color: #d9f5e8; }
+  }
+</style>

@@ -1,0 +1,282 @@
+---
+import { solutions } from '../data/solutions';
+import { u } from '../lib/url';
+
+// anchorBase : la page « home » de référence pour les ancres (#essai, #contact, #preuves).
+// Chaque version beta de la home passe '' (ancres locales) ; les autres pages pointent
+// vers la version par défaut. À la promotion d'une version en index, remettre '/'.
+interface Props {
+  anchorBase?: string;
+}
+const { anchorBase = u('/beta-recif') } = Astro.props;
+const home = anchorBase === '' ? '' : anchorBase;
+---
+
+<header class="site-header" id="site-header">
+  <a class="brand" href={home || u('/')} aria-label="SAFESPACE by NOVATECH — accueil">
+    <img src={u('/assets/logo-safespace-novatech.png')} alt="SAFESPACE by NOVATECH" width="170" height="44" loading="eager" />
+  </a>
+
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="drop">
+      <button class="drop-btn" aria-expanded="false" aria-controls="solutions-menu">
+        Solutions
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+      </button>
+      <div class="drop-menu" id="solutions-menu">
+        {solutions.map((s) => (
+          <a href={u(`/solutions/${s.slug}`)}>
+            <strong>{s.navLabel}</strong>
+            <span>{s.navHint}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+    <a href={`${home}#preuves`}>Pourquoi nous</a>
+    <a href={u('/urgence')} class="urgence-link">Urgence</a>
+    <a href={`${home}#contact`}>Contact</a>
+  </nav>
+
+  <div class="header-cta">
+    <a class="tel" href="tel:+687259667">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      +687 25 96 67
+    </a>
+    <a class="cta" href={`${home}#essai`}>Essai gratuit 30 jours</a>
+  </div>
+
+  <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <nav aria-label="Navigation mobile">
+    {solutions.map((s) => (
+      <a href={u(`/solutions/${s.slug}`)}>{s.navLabel}</a>
+    ))}
+    <a href={`${home}#preuves`}>Pourquoi nous</a>
+    <a href={u('/urgence')} class="urgence-link">Urgence 24/7</a>
+    <a href={`${home}#contact`}>Contact</a>
+    <a href={`${home}#essai`} class="cta">Essai gratuit 30 jours</a>
+  </nav>
+</div>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 14px clamp(16px, 4vw, 48px);
+    color: var(--blanc);
+    background: color-mix(in srgb, var(--abysse) 62%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid color-mix(in srgb, var(--lagon) 14%, transparent);
+    transition: background 0.4s;
+  }
+  .brand img {
+    display: block;
+    height: 38px;
+    width: auto;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-left: 8px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+  .nav > a,
+  .drop-btn {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.88;
+    transition: opacity 0.2s;
+  }
+  .nav > a:hover,
+  .drop-btn:hover {
+    opacity: 1;
+  }
+  .urgence-link {
+    color: var(--orange) !important;
+    font-weight: 600;
+    opacity: 1 !important;
+  }
+  .drop {
+    position: relative;
+  }
+  .drop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 0;
+  }
+  .drop-menu {
+    position: absolute;
+    top: 100%;
+    left: -14px;
+    min-width: 320px;
+    display: none;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--abysse) 92%, var(--brand));
+    border: 1px solid color-mix(in srgb, var(--lagon) 18%, transparent);
+    box-shadow: 0 24px 60px rgba(2, 10, 18, 0.5);
+  }
+  .drop:hover .drop-menu,
+  .drop:focus-within .drop-menu {
+    display: flex;
+  }
+  .drop-menu a {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .drop-menu a:hover {
+    background: color-mix(in srgb, var(--cyan) 14%, transparent);
+  }
+  .drop-menu strong {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .drop-menu span {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+  .header-cta {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    opacity: 0.92;
+  }
+  .cta {
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+    padding: 11px 20px;
+    border-radius: 99px;
+    box-shadow: 0 6px 22px color-mix(in srgb, var(--orange) 38%, transparent);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+  }
+  .cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--orange) 48%, transparent);
+  }
+  .burger {
+    display: none;
+    margin-left: auto;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--blanc);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    padding: 96px 28px 40px;
+    background: color-mix(in srgb, var(--abysse) 96%, var(--brand));
+    color: var(--blanc);
+  }
+  .mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-menu a {
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .mobile-menu a.cta {
+    margin-top: 22px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 16px;
+    border-bottom: 0;
+  }
+  body.menu-open .burger span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  body.menu-open .burger span:nth-child(2) {
+    opacity: 0;
+  }
+  body.menu-open .burger span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  @media (max-width: 960px) {
+    .nav,
+    .header-cta .tel {
+      display: none;
+    }
+    .header-cta .cta {
+      font-size: 13px;
+      padding: 9px 14px;
+    }
+    .header-cta {
+      margin-left: auto;
+    }
+    .burger {
+      display: block;
+      margin-left: 4px;
+    }
+  }
+</style>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const menu = document.getElementById('mobile-menu');
+  if (burger && menu) {
+    burger.addEventListener('click', () => {
+      const open = document.body.classList.toggle('menu-open');
+      burger.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach((a) =>
+      a.addEventListener('click', () => {
+        document.body.classList.remove('menu-open');
+        menu.hidden = true;
+        document.documentElement.style.overflow = '';
+      })
+    );
+  }
+</script>

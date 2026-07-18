@@ -1,0 +1,181 @@
+---
+import { solutions } from '../data/solutions';
+import { u } from '../lib/url';
+
+interface Props {
+  anchorBase?: string;
+}
+const { anchorBase = u('/beta-recif') } = Astro.props;
+const home = anchorBase === '' ? '' : anchorBase;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src={u('/assets/logo-safespace-novatech.png')} alt="SAFESPACE by NOVATECH" width="180" height="47" loading="lazy" />
+      <p>
+        Depuis 2007, nous protégeons les entreprises et administrations calédoniennes :
+        sauvegarde, reprise d’activité et cybersécurité, opérées depuis Nouméa.
+      </p>
+      <p class="nap">
+        <strong>NOVATECH</strong> — Nouméa, Nouvelle-Calédonie<br />
+        <a href="tel:+687259667">+687 25 96 67</a> · <a href="mailto:contact@novatech.nc">contact@novatech.nc</a>
+      </p>
+      <div class="socials">
+        <a href="https://wa.me/687259667" aria-label="WhatsApp" rel="noopener" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </a>
+        <a href="tel:+687259667" aria-label="Téléphone">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="mailto:contact@novatech.nc" aria-label="Email">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="m22 7-10 6L2 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <nav class="footer-col" aria-label="Solutions">
+      <h3>Solutions</h3>
+      {solutions.map((s) => <a href={u(`/solutions/${s.slug}`)}>{s.navLabel}</a>)}
+    </nav>
+
+    <nav class="footer-col" aria-label="Entreprise">
+      <h3>Entreprise</h3>
+      <a href={`${home}#preuves`}>Pourquoi NOVATECH</a>
+      <a href={`${home}#essai`}>Essai gratuit 30 jours</a>
+      <a href={`${home}#contact`}>Contact</a>
+      <a href={u('/urgence')} class="urgence">Urgence 24/7</a>
+    </nav>
+
+    <div class="footer-col">
+      <h3>Hébergement des données</h3>
+      <p class="hosting">
+        Vos sauvegardes, où vous le décidez :<br />
+        🇳🇨 Nouvelle-Calédonie · 🇦🇺 Australie · 🇫🇷 France
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© {year} SAFESPACE by NOVATECH. Tous droits réservés.</span>
+    <span class="legal">
+      <a href="https://safespace.nc/mentions-legales" rel="noopener">Mentions légales</a>
+      <a href="https://safespace.nc/politique-confidentialite" rel="noopener">Confidentialité</a>
+      <a href="https://safespace.nc/droits-rgpd" rel="noopener">Vos droits RGPD</a>
+    </span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--abysse);
+    color: color-mix(in srgb, var(--blanc) 82%, transparent);
+    padding: 72px clamp(20px, 5vw, 64px) 32px;
+    font-size: 14.5px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .footer-brand img {
+    height: 40px;
+    width: auto;
+    margin-bottom: 18px;
+  }
+  .footer-brand p {
+    max-width: 340px;
+    opacity: 0.75;
+    line-height: 1.65;
+  }
+  .nap {
+    margin-top: 16px;
+  }
+  .nap a {
+    color: var(--lagon);
+    text-decoration: none;
+  }
+  .socials {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--blanc);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .socials a:hover {
+    background: color-mix(in srgb, var(--cyan) 22%, transparent);
+    border-color: var(--cyan);
+  }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .footer-col h3 {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lagon);
+    margin-bottom: 8px;
+  }
+  .footer-col a {
+    text-decoration: none;
+    opacity: 0.78;
+    transition: opacity 0.2s;
+  }
+  .footer-col a:hover {
+    opacity: 1;
+  }
+  .footer-col .urgence {
+    color: var(--orange);
+    font-weight: 600;
+    opacity: 1;
+  }
+  .hosting {
+    opacity: 0.78;
+    line-height: 1.9;
+  }
+  .footer-bottom {
+    max-width: 1240px;
+    margin: 56px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    justify-content: space-between;
+    font-size: 13px;
+    opacity: 0.6;
+  }
+  .legal {
+    display: flex;
+    gap: 22px;
+  }
+  .legal a {
+    text-decoration: none;
+  }
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+</style>

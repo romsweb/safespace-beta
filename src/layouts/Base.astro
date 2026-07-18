@@ -1,0 +1,154 @@
+---
+// Base layout — socle SEO commun à toutes les pages.
+// Chaque page fournit title/description/canonical; le JSON-LD Organization/LocalBusiness
+// est émis partout, les schémas spécifiques (Service, FAQPage…) via le slot "head".
+import { u } from '../lib/url';
+
+const isBeta = process.env.BETA === '1';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Chemin canonique commençant par "/" (ex: "/solutions/plan-reprise-activite") */
+  path: string;
+  ogImage?: string;
+  /** Page légère (urgence) : pas de fonts externes ni de JS */
+  bare?: boolean;
+}
+const { title, description, path, ogImage = '/assets/og-safespace.jpg', bare = false } = Astro.props;
+const site = 'https://safespace.nc';
+const canonical = site + (path === '/' ? '' : path);
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'LocalBusiness'],
+  '@id': site + '/#organization',
+  name: 'SAFESPACE by NOVATECH',
+  legalName: 'NOVATECH',
+  url: site,
+  logo: site + '/assets/logo-safespace-novatech.png',
+  description:
+    'Solutions de sauvegarde, plan de reprise d’activité et cybersécurité pour les entreprises et administrations de Nouvelle-Calédonie depuis 2007.',
+  telephone: '+687259667',
+  email: 'contact@novatech.nc',
+  foundingDate: '2007',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Nouméa',
+    addressRegion: 'Nouvelle-Calédonie',
+    addressCountry: 'NC',
+  },
+  areaServed: ['Nouvelle-Calédonie', 'Pacifique Sud'],
+  sameAs: ['https://wa.me/687259667'],
+};
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="NOVATECH" />
+    <link rel="canonical" href={canonical} />
+    {isBeta && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/png" href={u('/favicon.png')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={u('/apple-touch-icon.png')} />
+    <link rel="sitemap" href={u('/sitemap-index.xml')} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SAFESPACE by NOVATECH" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={site + ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={site + ogImage} />
+
+    {!bare && (
+      <>
+        <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap"
+        />
+      </>
+    )}
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <slot name="head" />
+  </head>
+  <body class={bare ? 'bare' : undefined}>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /* Le monde « Sous le Récif » */
+    --abysse: #04121f;
+    --marine: #0a2540;
+    --brand: #143d61;
+    --bleu: #2b56a1;
+    --cyan: #0fb4d4;
+    --lagon: #7fd8de;
+    --ecume: #eef6f8;
+    --blanc: #fbfdfe;
+    --encre: #0e1e2b;
+    --encre-2: #3d5468;
+    --orange: #ff6733;
+    --orange-deep: #e04e1b;
+
+    --font-display: 'Clash Display', 'Arial Narrow', sans-serif;
+    --font-body: 'General Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--encre);
+    background: var(--blanc);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.06;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p {
+    line-height: 1.6;
+    margin: 0;
+  }
+  a {
+    color: inherit;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  ::selection {
+    background: var(--cyan);
+    color: var(--abysse);
+  }
+</style>
