@@ -65,6 +65,15 @@ const versions = [
       <span>Betas en <code>noindex</code> — le site actuel safespace.nc n’est pas affecté.</span>
     </footer>
   </main>
+
+  <script is:inline>
+    // Contrat dev : page sans film, prête dès le chargement
+    window.addEventListener('load', function () {
+      requestAnimationFrame(function () {
+        window.__ready = true;
+      });
+    });
+  </script>
 </Base>
 
 <style>

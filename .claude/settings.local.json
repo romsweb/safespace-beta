@@ -4,7 +4,9 @@
       "Bash(mkdir -p ~/.claude/skills)",
       "Bash(cp -R \"/private/tmp/claude-501/-Users-romain-Documents-Coding-safespace-fable-5-site-revamp/24b67e77-0c87-4b31-a51a-ee0c3cacb90c/scratchpad/fable5-skill/scroll-film-studio\" ~/.claude/skills/)",
       "Bash(chmod +x ~/.claude/skills/scroll-film-studio/scripts/*.sh)",
-      "Read(//Users/romain/.claude/skills/**)"
+      "Read(//Users/romain/.claude/skills/**)",
+      "Bash(git add *)",
+      "Bash(git -c user.name=romsweb -c user.email=rp@ik.me commit -m 'Contrat __ready sur le sélecteur de versions *)"
     ]
   }
 }
