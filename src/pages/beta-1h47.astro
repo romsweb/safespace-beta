@@ -62,14 +62,19 @@ const vms = ['SRV-AD', 'SRV-COMPTA', 'SRV-FICHIERS', 'SRV-ERP', 'M365', 'NAS-01'
         <div class="desk" aria-hidden="true">
           <div class="window" id="window">
             <div class="win-bar">
-              <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
-              <span class="win-title">Fichiers — Serveur SOCIETE-NC</span>
+              <span class="win-ico" aria-hidden="true"></span>
+              <span class="win-title">Serveur SOCIETE-NC — Explorateur de fichiers</span>
               <span class="win-clock" id="win-clock">08:02</span>
+              <span class="win-controls" aria-hidden="true">
+                <i class="c-min"></i>
+                <i class="c-max"></i>
+                <i class="c-close">✕</i>
+              </span>
             </div>
             <div class="win-body">
               {files.map((f) => (
                 <div class="file-row">
-                  <span class="f-ico" aria-hidden="true"></span>
+                  <span class={`f-ico ${f.name.endsWith('/') ? 'is-folder' : ''}`} aria-hidden="true"></span>
                   <span class="f-name">
                     <span class="n-ok">{f.name}</span>
                     <span class="n-locked">{f.name.replace(/\/$/, '')}.x7z9 🔒</span>
@@ -329,23 +334,36 @@ const vms = ['SRV-AD', 'SRV-COMPTA', 'SRV-FICHIERS', 'SRV-ERP', 'M365', 'NAS-01'
   .win-bar {
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 12px 16px;
-    background: #eef2f5;
-    border-bottom: 1px solid #dde5ea;
+    gap: 9px;
+    padding: 8px 0 8px 14px;
+    background: #f3f3f3;
+    border-bottom: 1px solid #e3e6e8;
+    font-family: 'Segoe UI', system-ui, sans-serif;
   }
-  .dot {
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
+  .win-ico {
+    width: 15px;
+    height: 12px;
+    border-radius: 2px 3px 3px 3px;
+    background: linear-gradient(180deg, #ffd76e 0%, #f8b64c 100%);
+    position: relative;
+    flex-shrink: 0;
   }
-  .d1 { background: #ff5f57; }
-  .d2 { background: #febc2e; }
-  .d3 { background: #28c840; }
+  .win-ico::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 7px;
+    height: 4px;
+    border-radius: 2px 2px 0 0;
+    background: #f8b64c;
+  }
   .win-title {
-    margin-left: 10px;
     font-size: 12.5px;
     color: var(--encre-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .win-clock {
     margin-left: auto;
@@ -353,6 +371,36 @@ const vms = ['SRV-AD', 'SRV-COMPTA', 'SRV-FICHIERS', 'SRV-ERP', 'M365', 'NAS-01'
     font-size: 13px;
     font-weight: 700;
     color: var(--encre);
+  }
+  .win-controls {
+    display: flex;
+    align-items: stretch;
+    align-self: stretch;
+    margin: -8px 0;
+  }
+  .win-controls i {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    font-style: normal;
+    font-size: 11px;
+    color: #444;
+  }
+  .c-min::before {
+    content: '';
+    width: 10px;
+    height: 1px;
+    background: #444;
+  }
+  .c-max::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border: 1px solid #444;
+    border-radius: 2px;
+  }
+  .c-close {
+    background: transparent;
   }
   .win-body {
     padding: 10px 0;
@@ -368,9 +416,26 @@ const vms = ['SRV-AD', 'SRV-COMPTA', 'SRV-FICHIERS', 'SRV-ERP', 'M365', 'NAS-01'
   .f-ico {
     width: 14px;
     height: 14px;
-    border-radius: 4px;
-    background: linear-gradient(135deg, var(--cyan), var(--bleu));
+    border-radius: 3px;
+    background: linear-gradient(180deg, #6db3e8, #3a7fc1);
     flex-shrink: 0;
+    position: relative;
+  }
+  .f-ico.is-folder {
+    height: 12px;
+    margin-top: 2px;
+    border-radius: 2px 3px 3px 3px;
+    background: linear-gradient(180deg, #ffd76e 0%, #f8b64c 100%);
+  }
+  .f-ico.is-folder::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 7px;
+    height: 4px;
+    border-radius: 2px 2px 0 0;
+    background: #f8b64c;
   }
   .f-name {
     position: relative;
